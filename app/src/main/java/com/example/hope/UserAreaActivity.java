@@ -28,7 +28,16 @@ import static com.example.hope.MainActivity.userid;
 
 public class UserAreaActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
-
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(UserAreaActivity.this,"Signed out!",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +48,10 @@ public class UserAreaActivity extends AppCompatActivity {
         final Button btLogout = (Button) findViewById(R.id.bLogout);
         final DBConnection db = new DBConnection(this);
         final ListView ls = findViewById(R.id.list_view);
-
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
        if (userid==1) {
            ArrayList<String> arrayList = db.getAllrecord();
            ArrayAdapter<String> arrayAdapter =
@@ -56,9 +68,9 @@ public class UserAreaActivity extends AppCompatActivity {
         btLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent logoutIntent = new Intent(UserAreaActivity.this,MainActivity.class);
-                UserAreaActivity.this.startActivity(logoutIntent);
+            signOut();
+            //    Intent logoutIntent = new Intent(UserAreaActivity.this,MainActivity.class);
+              //  UserAreaActivity.this.startActivity(logoutIntent);
 
             }
         });

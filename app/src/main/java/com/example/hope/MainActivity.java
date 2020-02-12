@@ -31,23 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.sign_in_button:
                 signIn();
                 break;
-            case R.id.bSignOut:
-                signOut();
-                break;
+
 
             // ...
         }
     }
-    private void signOut() {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(MainActivity.this,"Signed out!",Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                });
-    }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -102,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final TextView registerLink =(TextView) findViewById(R.id.tvRegisterLink);
         final DBConnection db =new DBConnection(this);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.bSignOut).setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
