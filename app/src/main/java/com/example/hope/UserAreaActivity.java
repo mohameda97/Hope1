@@ -69,8 +69,8 @@ public class UserAreaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             signOut();
-            //    Intent logoutIntent = new Intent(UserAreaActivity.this,MainActivity.class);
-              //  UserAreaActivity.this.startActivity(logoutIntent);
+                Intent logoutIntent = new Intent(UserAreaActivity.this,MainActivity.class);
+                UserAreaActivity.this.startActivity(logoutIntent);
 
             }
         });
@@ -88,6 +88,7 @@ public class UserAreaActivity extends AppCompatActivity {
     public void btDelete(View view){
     DBConnection db = new DBConnection(this);
     db.deleteR(userid);
+
         Intent logoutIntent = new Intent(UserAreaActivity.this,MainActivity.class);
         UserAreaActivity.this.startActivity(logoutIntent);
 

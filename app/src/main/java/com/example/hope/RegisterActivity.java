@@ -39,7 +39,10 @@ GoogleSignInClient mGoogleSignInClient;
     }
 
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,22 +99,21 @@ GoogleSignInClient mGoogleSignInClient;
             String personFamilyName = acct.getFamilyName();
             String personEmail = acct.getEmail();
             String personId = acct.getId();
+            int iduser =userID(personEmail);
+            if (iduser<1){
             etName.setText( personGivenName);
             etUser_name.setText(personEmail);
+            }
         }
 
 
 
     }
-    private void signOut() {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(RegisterActivity.this,"Signed out!",Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                });
+    public  int userID (String username){
+        DBConnection db = new DBConnection(this);
+        int userID = db.getID(username);
+        return userID;
     }
+
 
 }
