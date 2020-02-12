@@ -30,22 +30,22 @@ public class updateUserInfo extends AppCompatActivity {
         final EditText editAge = (EditText) findViewById(R.id.edit_Age);
         final EditText editPassword = (EditText) findViewById(R.id.edit_password);
         if(!editName.getText().toString().equals("")){
-        db.updateName(editName.getText().toString(),Integer.parseInt(userid));
+        db.updateName(editName.getText().toString(),userid);
             Intent registerIntent = new Intent(updateUserInfo.this,MainActivity.class);
             updateUserInfo.this.startActivity(registerIntent);
 
         }
         if (!editAge.getText().toString().equals("")){
-            db.updateAge(editAge.getText().toString(),Integer.parseInt(userid));
+            db.updateAge(editAge.getText().toString(),userid);
             Intent registerIntent = new Intent(updateUserInfo.this,MainActivity.class);
             updateUserInfo.this.startActivity(registerIntent);
         }
         if (!editUserName.getText().toString().equals("")){
-            db.updateUserName(editUserName.getText().toString(),Integer.parseInt(userid));
+            db.updateUserName(editUserName.getText().toString(),userid);
             Intent registerIntent = new Intent(updateUserInfo.this,MainActivity.class);
             updateUserInfo.this.startActivity(registerIntent);
         }if (!editPassword.getText().toString().equals("")){
-            db.updatePassword(editPassword.getText().toString(),Integer.parseInt(userid));
+            db.updatePassword(editPassword.getText().toString(),userid);
             Intent registerIntent = new Intent(updateUserInfo.this,MainActivity.class);
             updateUserInfo.this.startActivity(registerIntent);
         }

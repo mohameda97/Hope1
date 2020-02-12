@@ -79,13 +79,13 @@ public class DBConnection extends SQLiteOpenHelper {
 
         return  arrayList;
     }
-    public String getID(String name){
-        String ID="";
+    public int getID(String name){
+        int ID=0;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select id from Patient where username = '"+ name +"'" ,null);
         res.moveToFirst();
         while (res.isAfterLast() == false){
-            ID = res.getString(res.getColumnIndex("id"));
+            ID = res.getInt(res.getColumnIndex("id"));
             res.moveToNext();
         }
         return ID;

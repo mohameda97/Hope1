@@ -1,15 +1,25 @@
 package com.example.hope;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +27,7 @@ import java.util.List;
 import static com.example.hope.MainActivity.userid;
 
 public class UserAreaActivity extends AppCompatActivity {
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +39,8 @@ public class UserAreaActivity extends AppCompatActivity {
         final Button btLogout = (Button) findViewById(R.id.bLogout);
         final DBConnection db = new DBConnection(this);
         final ListView ls = findViewById(R.id.list_view);
-       if (Integer.parseInt(userid)==1) {
+
+       if (userid==1) {
            ArrayList<String> arrayList = db.getAllrecord();
            ArrayAdapter<String> arrayAdapter =
                    new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList);
@@ -37,13 +49,14 @@ public class UserAreaActivity extends AppCompatActivity {
        else {
            ls.setVisibility(View.INVISIBLE);
        }
-        etName.setText(db.getName(Integer.parseInt(userid)));
-        etAge.setText(db.getAge(Integer.parseInt(userid)));
-        etUser_name.setText(db.getUsername(Integer.parseInt(userid)));
+        etName.setText(db.getName(userid));
+        etAge.setText(db.getAge(userid));
+        etUser_name.setText(db.getUsername(userid));
 
         btLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent logoutIntent = new Intent(UserAreaActivity.this,MainActivity.class);
                 UserAreaActivity.this.startActivity(logoutIntent);
 
@@ -62,9 +75,12 @@ public class UserAreaActivity extends AppCompatActivity {
     }
     public void btDelete(View view){
     DBConnection db = new DBConnection(this);
-    db.deleteR(Integer.parseInt(userid));
+    db.deleteR(userid);
         Intent logoutIntent = new Intent(UserAreaActivity.this,MainActivity.class);
         UserAreaActivity.this.startActivity(logoutIntent);
 
     }
-}
+
+
+
+                }
