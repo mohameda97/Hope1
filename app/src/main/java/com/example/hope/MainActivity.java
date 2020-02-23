@@ -24,7 +24,6 @@ import com.google.android.gms.tasks.Task;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN;
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -99,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 Intent registerIntent = new Intent(MainActivity.this,RegisterActivity.class);
+
                 MainActivity.this.startActivity(registerIntent);
             }
         });
